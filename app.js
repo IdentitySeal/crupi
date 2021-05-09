@@ -1,5 +1,5 @@
 const express = require("express");
-// const bodyParser = require("body-parser");
+const bodyParser = require("body-parser");
 const cors = require("cors");
 const mongoose = require("mongoose");
 const dotenv = require('dotenv');
@@ -22,8 +22,8 @@ mongoose.connect(`mongodb+srv://${process.env.DB_NAME}:${process.env.DB_PASSWORD
 const app = express();
 const PORT = 8000;
 app.use(cors());
-// app.use(bodyParser.json());
-// app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 app.get("/", (req, res) => {
     res.send("It works!");
 });
