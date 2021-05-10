@@ -1,53 +1,51 @@
-// const mongoose = require("mongoose");
-// Book = mongoose.model('Books')
 
-const Book = require('../model');
+const Users = require('../model');
 
-// Create a book
+// Create a Users
 exports.create = async (req, res) => {
 
-    const book = new Book(req.body)
+    const user = new Users(req.body)
     try {
-        await book.save()
-        res.status(201).send({message:"Book is created Sucessfully", data: book})
+        await user.save()
+        res.status(201).send({ message:"User is created Sucessfully", data: user})
     }
     catch (err) {
-        res.status(500).send({message: err.message || "Some error occurred while creating the Book details.",});
+        res.status(500).send({ message: err.message || "Some error occurred while creating the User details.",});
     }
 
 };
 
-// Get all Books
+// Get all Users
 
 exports.findAll = async (req, res) => {
     try {
 
-        const getAllBooks = await Book.find();
-        if (!getAllBooks)
+        const getAllUsers = await Users.find();
+        if (!getAllUsers)
             return res.status(404).send()
-        res.status(200).send({ message: "List of is All Books", data: getAllBooks})
+        res.status(200).send({ message: "List of is All Users", data: getAllUsers})
     }
     catch (err) {
-        res.status(400).send({ message: err.message || "error while trying to retrieve all books"})
+        res.status(400).send({ message: err.message || "error while trying to retrieve all Users"})
     };
 }
 
-// Find a Book by the id in the request
+// Find a User by the id in the request
 
 exports.findOne = async (req, res) => {
     try {
         const id = req.params.id;
-        const getOneBook = await Book.findById(id)
-        if (!getOneBook)
+        const getOneUser = await Users.findById(id)
+        if (!getOneUser)
             return res.status(404).send()
-        res.status(200).send({message: `Book with id:${id} is provided Here`, data: getOneBook})
+        res.status(200).send({ message: `Users with id:${id} is provided Here`, data: getOneUser})
     }
     catch (err) {
-        res.status(500).send({message:err.message || "Error retrieving the Book"});
+        res.status(500).send({ message: err.message || "Error retrieving the User"});
     }
 };
 
-// Update a Book by the id in the request
+// Update a User by the id in the request
 exports.update = async (req, res) => {
     try {
         if (!req.body) {
@@ -55,16 +53,16 @@ exports.update = async (req, res) => {
         }
         const id = req.params.id;
 
-        const updateBookById = await Book.findByIdAndUpdate(id, req.body, { useFindAndModify: false })
+        const updateUsersById = await Users.findByIdAndUpdate(id, req.body, { useFindAndModify: false })
         
-        if (!updateBookById)
-            res.status(404).send({ message: `Cannot update Book with id=${id}. Maybe the Book cannot be found!`});
-        res.send({ message: `Book with ${id} was updated successfully.`, data: updateBookById });
+        if (!updateUsersById)
+            res.status(404).send({ message: `Cannot update User with id=${id}. Maybe the User cannot be found!`});
+        res.send({ message: `User with ${id} was updated successfully.`, data: updateUsersById });
 
     }
     catch (err) {
         res.status(500).send({
-            message: err.message || "Error updating Book with id=" + id
+            message: err.message || "Error updating User with id=" + id
         });
     }
 }
@@ -74,23 +72,23 @@ exports.update = async (req, res) => {
 
 
 
-// Delete a Book with the specified id in the request
+// Delete a User with the specified id in the request
 exports.delete = async (req, res) => {
     try {
         const id = req.params.id;
 
-        const deleteBookById = await Book.findByIdAndRemove(id, {
+        const deleteUsersById = await Users.findByIdAndRemove(id, {
             useFindAndModify: false
 
         })
-        if (!deleteBookById)
+        if (!deleteUsersById)
             res.status(404).send({
-                message: `Cannot delete Book with id=${id}. Maybe Book was not found!`
+                message: `Cannot delete User with id=${id}. Maybe User was not found!`
             });
-        res.send({ message: `Book with id ${id} was deleted successfully!`,data : deleteBookById });
+        res.send({ message: `User with id ${id} was deleted successfully!`, data: deleteUsersById });
 
     }
     catch (err) {
-        res.status(500).send({ message: err.message ||"Could not delete Book with id=" + id });
+        res.status(500).send({ message: err.message ||"Could not delete User with id=" + id });
     }
 };

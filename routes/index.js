@@ -1,23 +1,23 @@
 module.exports = app => {
-    const books = require("../controller");
-    var router = require("express").Router();
+    const users = require("../controller");
+    const router = require("express").Router();
 
-    // Create a new Book
-    router.post("/", books.create);
+    // Create a new User
+    router.post("/", users.create);
 
-    // Retrieve all Books
-    router.get("/", books.findAll);
+    // Retrieve all Users
+    router.get("/", users.findAll);
 
-    // Retrieve a single Book with id
-    router.get("/:id", books.findOne);
+    // Retrieve a single User with id
+    router.get("/:id", users.findOne);
 
-    // Update a Book with id
-    router.put("/:id", books.update);
+    // Update a User with id
+    router.put("/:id", users.update);
 
-    // Delete a Book with id
-    router.delete("/:id", books.delete);
+    // Delete a User with id
+    router.delete("/:id", users.delete);
 
 
     // main api endpoint to all routes
-    app.use('/api/books', router);
+    app.use('/api/users', router);
 };
